@@ -1,0 +1,25 @@
+name: Upload Installer Asset
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  upload-installer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Upload installer script to release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          chmod +x install_release_znas.sh
+          gh release upload "${{ github.event.release.tag_name }}" install_release_znas.sh --clobber

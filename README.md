@@ -16,48 +16,56 @@ macOS `x86_64` is not supported.
 
 ## Installation
 
-### 1. Clone the repository
+### Recommended: one-command install from GitHub
 
 ```bash
-git clone git@github.com:zettlab/zettos-skills.git
-cd zettos-skills
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash
 ```
 
-### 2. Download the release archive
-
-Open the [Releases](../../releases) page, download the archive for your platform, and place it under the local `releases/` directory in this repository.
-
-### 3. Run the installer
+Install non-interactively for a specific agent:
 
 ```bash
-# Interactive install
-bash install.sh
-
-# Specify the target agent
-bash install.sh --agent codex
-bash install.sh --agent claudecode
-bash install.sh --agent openclaw
-
-# Custom skill directory
-bash install.sh --agent custom --skills-dir ~/.local/share/my-agent/skills
-
-# Override the binary install directory
-bash install.sh --agent codex --install-dir ~/.local/bin
-
-# Non-interactive install with defaults
-bash install.sh --agent codex --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent codex --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent claudecode --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent openclaw --yes
 ```
 
-The installer will:
+Custom install locations:
 
-- Extract the `znas` binary into `/usr/local/bin` by default, and fall back to `~/.local/bin` if the target directory is not writable.
+```bash
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- \
+  --agent custom \
+  --skills-dir ~/.local/share/my-agent/skills \
+  --install-dir ~/.local/bin \
+  --yes
+```
+
+The online installer will:
+
+- Download the latest GitHub Release archive for your platform automatically.
+- Download the matching repository source archive for the same release tag.
+- Install the `znas` binary into `/usr/local/bin` by default, and fall back to `~/.local/bin` if the target directory is not writable.
 - Copy the 6 bundled Skills into the selected agent skill directory.
 - Offer to add `~/.local/bin` to `PATH` when needed.
 
-### 4. Verify the installation
+The installer script itself is served from the GitHub Release assets, so the entrypoint is versioned and does not drift with `main`.
+
+### Verify the installation
 
 ```bash
 znas --version
+```
+
+### Alternative: install from a local clone
+
+If you prefer to install from a checked-out repository, you can still use the local installer:
+
+```bash
+git clone https://github.com/zettlab/zettos-skills.git
+cd zettos-skills
+
+# Download the release archive for your platform into ./releases first
+bash install.sh --agent codex --yes
 ```
 
 ## Included Skills

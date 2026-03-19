@@ -16,48 +16,56 @@ zNAS 是 ZettOS NAS 的命令行工具，并随仓库提供一组 Skill，供 Cl
 
 ## 安装
 
-### 1. 克隆仓库
+### 推荐：通过 GitHub 一条命令安装
 
 ```bash
-git clone git@github.com:zettlab/zettos-skills.git
-cd zettos-skills
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash
 ```
 
-### 2. 下载发布包
-
-前往仓库的 [Releases](../../releases) 页面，下载当前平台对应的压缩包，并放到仓库本地的 `releases/` 目录下。
-
-### 3. 运行安装脚本
+为指定 agent 进行非交互安装：
 
 ```bash
-# 交互式安装
-bash install.sh
-
-# 指定目标 agent
-bash install.sh --agent codex
-bash install.sh --agent claudecode
-bash install.sh --agent openclaw
-
-# 自定义 skill 目录
-bash install.sh --agent custom --skills-dir ~/.local/share/my-agent/skills
-
-# 自定义二进制安装目录
-bash install.sh --agent codex --install-dir ~/.local/bin
-
-# 使用默认选项进行非交互安装
-bash install.sh --agent codex --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent codex --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent claudecode --yes
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- --agent openclaw --yes
 ```
 
-安装脚本会：
+自定义安装位置：
 
+```bash
+curl -fsSL https://github.com/zettlab/zettos-skills/releases/latest/download/install_release_znas.sh | bash -s -- \
+  --agent custom \
+  --skills-dir ~/.local/share/my-agent/skills \
+  --install-dir ~/.local/bin \
+  --yes
+```
+
+在线安装脚本会：
+
+- 自动下载当前平台对应的最新 GitHub Release 二进制包。
+- 自动下载同一 release tag 对应的仓库源码包。
 - 默认将 `znas` 二进制安装到 `/usr/local/bin`，如果目标目录不可写，会自动降级到 `~/.local/bin`。
 - 将仓库内置的 6 个 Skill 复制到所选 agent 的 skill 目录。
 - 在需要时提示把 `~/.local/bin` 加入 `PATH`。
 
-### 4. 验证安装
+安装入口脚本本身也通过 GitHub Release assets 提供，因此入口是带版本的，不会随着 `main` 分支内容漂移。
+
+### 验证安装
 
 ```bash
 znas --version
+```
+
+### 备选：从本地仓库安装
+
+如果你更希望从本地 clone 的仓库安装，也可以继续使用现有脚本：
+
+```bash
+git clone https://github.com/zettlab/zettos-skills.git
+cd zettos-skills
+
+# 先把当前平台对应的发布包下载到 ./releases 目录
+bash install.sh --agent codex --yes
 ```
 
 ## 内置 Skills
