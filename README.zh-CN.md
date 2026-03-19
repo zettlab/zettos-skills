@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-zNAS 是 Zettos NAS 的命令行工具，并随仓库提供一组 Skill，供 Claude Code、Codex、OpenClaw 等 AI Agent 通过统一接口操控 NAS。
+zNAS 是 ZettOS NAS 的命令行工具，并随仓库提供一组 Skill，供 Claude Code、Codex、OpenClaw 等 AI Agent 通过统一接口操控 NAS。
 
 ## 支持平台
 

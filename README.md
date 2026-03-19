@@ -2,7 +2,7 @@
 
 [简体中文](README.zh-CN.md)
 
-zNAS is a command-line tool for Zettos NAS. It is packaged together with Skill bundles so AI agents such as Claude Code, Codex, and OpenClaw can operate a NAS through a consistent interface.
+zNAS is a command-line tool for ZettOS NAS. It is packaged together with Skill bundles so AI agents such as Claude Code, Codex, and OpenClaw can operate a NAS through a consistent interface.
 
 ## Supported Platforms
 
