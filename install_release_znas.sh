@@ -97,12 +97,16 @@ prompt_agent() {
     echo "error: interactive mode requires a terminal; rerun with --agent codex|claudecode|openclaw" >&2
     exit 1
   fi
-  cat <<'EOF'
-Select agent:
-  1) codex
-  2) claudecode
-  3) openclaw
-  4) custom skills dir
+  cat <<EOF
+Select agent and skills install directory:
+  1) codex (${DEFAULT_CODEX_SKILLS_DIR})
+  2) claudecode (${DEFAULT_CLAUDE_SKILLS_DIR})
+  3) openclaw (${DEFAULT_OPENCLAW_SKILLS_DIR})
+  4) custom skills dir (for other agents or a manual path)
+
+Binary install directory:
+  default: ${DEFAULT_INSTALL_DIR}
+  fallback when not writable: ${HOME}/.local/bin
 EOF
   local answer=""
   while [[ -z "$answer" ]]; do
@@ -127,7 +131,7 @@ prompt_custom_skills_dir() {
   fi
   local answer=""
   while [[ -z "$answer" ]]; do
-    read -r -p "Custom skills dir: " answer </dev/tty
+    read -r -p "Custom skills dir (absolute path or ~-based path): " answer </dev/tty
   done
   SKILLS_DIR="$answer"
 }
