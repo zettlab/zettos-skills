@@ -1,70 +1,82 @@
 # zNAS CLI
 
-zNAS 是 Zettos NAS 的命令行工具，供 AI Agent（Claude Code / Codex / OpenClaw 等）以技能（Skill）方式操控 NAS。
+[简体中文](README.zh-CN.md)
 
-## 支持平台
+zNAS is a command-line tool for Zettos NAS. It is packaged together with Skill bundles so AI agents such as Claude Code, Codex, and OpenClaw can operate a NAS through a consistent interface.
 
-| 平台 | 架构 | 文件名 |
-|------|------|--------|
+## Supported Platforms
+
+| Platform | Architecture | Release Archive |
+| --- | --- | --- |
 | Linux | x86_64 | `znas-linux-x86_64.tar.gz` |
 | Linux | aarch64 | `znas-linux-aarch64.tar.gz` |
 | macOS | Apple Silicon | `znas-macos-aarch64.tar.gz` |
 
-## 安装
+macOS `x86_64` is not supported.
 
-### 1. 克隆仓库
+## Installation
+
+### 1. Clone the repository
 
 ```bash
 git clone git@github.com:zettlab/zettos-skills.git
 cd zettos-skills
 ```
 
-### 2. 下载二进制包
+### 2. Download the release archive
 
-前往本仓库的 [Releases](../../releases) 页面，下载你平台对应的 `.tar.gz` 文件，放到仓库的 `releases/` 目录下。
+Open the [Releases](../../releases) page, download the archive for your platform, and place it under the local `releases/` directory in this repository.
 
-### 3. 运行安装脚本
+### 3. Run the installer
 
 ```bash
-# 交互式安装（会提示选择 agent 类型）
+# Interactive install
 bash install.sh
 
-# 指定 agent 类型
-bash install.sh --agent claudecode
+# Specify the target agent
 bash install.sh --agent codex
+bash install.sh --agent claudecode
 bash install.sh --agent openclaw
 
-# 自定义 skill 目录
+# Custom skill directory
 bash install.sh --agent custom --skills-dir ~/.local/share/my-agent/skills
+
+# Override the binary install directory
+bash install.sh --agent codex --install-dir ~/.local/bin
+
+# Non-interactive install with defaults
+bash install.sh --agent codex --yes
 ```
 
-安装脚本会：
-- 解压二进制到 `/usr/local/bin`（无权限时自动降级到 `~/.local/bin`）
-- 将 6 个 Skill 复制到对应 agent 的 skill 目录
+The installer will:
 
-### 4. 验证
+- Extract the `znas` binary into `/usr/local/bin` by default, and fall back to `~/.local/bin` if the target directory is not writable.
+- Copy the 6 bundled Skills into the selected agent skill directory.
+- Offer to add `~/.local/bin` to `PATH` when needed.
+
+### 4. Verify the installation
 
 ```bash
 znas --version
 ```
 
-## Skills
+## Included Skills
 
-仓库 `skills/` 目录包含 6 个 AI Agent 技能：
+The `skills/` directory contains 6 AI agent Skills:
 
-| Skill | 用途 |
-|-------|------|
-| `znas-shared` | 共享配置：网关连接、认证、通用规则 |
-| `znas-file` | 文件管理：浏览、上传、下载、搜索、分享 |
-| `znas-settings` | 系统设置：网络、存储、用户、安全等 |
-| `znas-app-store` | 应用商店：安装、更新、卸载应用 |
-| `znas-docker` | Docker 管理：容器、镜像、网络、卷 |
-| `znas-desktop-shell` | 桌面功能：资源监控、任务中心、消息 |
+| Skill | Purpose |
+| --- | --- |
+| `znas-shared` | Shared configuration, gateway connectivity, authentication, and common rules |
+| `znas-file` | File management, including browse, upload, download, search, and sharing |
+| `znas-settings` | System settings such as network, storage, users, and security |
+| `znas-app-store` | App Store operations, including install, update, and uninstall |
+| `znas-docker` | Docker management for containers, images, networks, and related resources |
+| `znas-desktop-shell` | Desktop features such as resource monitoring, task center, and messages |
 
-## Agent Skill 目录默认路径
+## Default Agent Skill Directories
 
-| Agent | 默认路径 |
-|-------|----------|
+| Agent | Default Path |
+| --- | --- |
 | Claude Code | `~/.claude/skills/` |
 | Codex | `~/.codex/skills/` |
 | OpenClaw | `~/.agents/skills/` |
